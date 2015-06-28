@@ -2,3 +2,8 @@
 	max-width: 550px;
 
 }
+
+#subBtn{
+	float: right;
+	margin-top: 30px;
+}

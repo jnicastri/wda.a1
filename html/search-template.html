@@ -13,37 +13,68 @@
 				<table>
 					<tr>
 						<td><label for="wineTb">Wine Name:</label></td>
-						<td><input id="wineTb" name="wineNameTb" type="text" class="defaultTb" /></td>
+						<td><input id="wineTb" name="wineNameTb" type="text" class="defaultTb" placeholder="Enter a wine name" /></td>
 					</tr>
 					<tr>
 						<td><label for="wineryTb">Winery Name:</label></td>
-						<td><input id="wineryTb" name="wineryNameTb" type="text" class="defaultTb" /></td>
+						<td><input id="wineryTb" name="wineryNameTb" type="text" class="defaultTb" placeholder="Enter a winery name" /></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td><label>Region:</label></td>
+						<td>
+							<select name="regionSelect">
+							<!-- $BeginBlock regionSelect -->
+								<option value="${regionName}">${regionName}</option>
+							<!-- $EndBlock regionSelect -->
+							</select>
+						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td><label>Grape Variety:</label></td>
+						<td>
+							<select name="grapeSelect">
+							<!-- $BeginBlock grapeSelect -->
+								<option value="${grapeName}">${grapeName}</option>
+							<!-- $EndBlock grapeSelect -->
+							</select>
+						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td><label>Year Range:</label></td>
+						<td>
+							<select name="yearMinSelect">
+							<!-- $BeginBlock yearMinSelect -->
+								<option value="${minYearName}">${minYearName}</option>
+							<!-- $EndBlock yearMinSelect -->
+							</select>
+							
+							<select name="yearMaxSelect">
+							<!-- $BeginBlock yearMaxSelect -->
+								<option value="${maxYearName}">${maxYearName}</option>
+							<!-- $EndBlock yearMaxSelect -->
+							</select>
+						
+						</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td><label for="minStockUnitsTb">Min. Units In Stock:</label></td>
+						<td><input id="minStockUnitsTb" name="minStockUnitsTb" type="text" class="defaultTb" placeholder="Enter min. stock on hand" /></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td><label for="minOrderTb">Min. Ordered:</label></td>
+						<td><input id="minOrderTb" name="minOrderTb" type="text" class="defaultTb" placeholder="Enter min. ordered units" /></td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
+						<td><label for="costTb">Cost:</label></td>
+						<td>
+							<input id="costTb" name="costTb" type="text" class="defaultTb" placeholder="Enter cost value" />&nbsp;
+							<input type="radio" name="cost" value="min">Min Cost&nbsp;&nbsp;
+							<input type="radio" name="cost" value="max">Max Cost
+						</td>
 					</tr>
 				</table>
+				<input id="subBtn" type="submit" value="Search for Wine" />
+				<div class="clearall"></div>
 			</fieldset>
 		</form>
 	</body>
