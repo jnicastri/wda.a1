@@ -2,8 +2,49 @@
 <html>
 	<head>
 		<title>Wine Store Search</title>
+		<link rel="stylesheet" type="text/css" href="css/global.css" />
+		<link rel="stylesheet" type="text/css" href="css/search.css" />
 	</head>
 	<body>
 		<h1>Wine Store Search</h1>
+		<form action="http://${baseurl}/answer.php" method="GET">
+			<fieldset id="searchFs">
+				<legend>Choose a Search Criteria:</legend>
+				<table>
+					<tr>
+						<td><label for="wineTb">Wine Name:</label></td>
+						<td><input id="wineTb" name="wineNameTb" type="text" class="defaultTb" /></td>
+					</tr>
+					<tr>
+						<td><label for="wineryTb">Winery Name:</label></td>
+						<td><input id="wineryTb" name="wineryNameTb" type="text" class="defaultTb" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</fieldset>
+		</form>
 	</body>
 </html>
