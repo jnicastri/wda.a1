@@ -14,3 +14,7 @@ label{
 .clearall{
 	clear: both;
 }
+
+.halfTb{
+	width: 42px;
+}

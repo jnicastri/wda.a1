@@ -21,7 +21,7 @@
 			$records = $con->query('CALL Search_BindData(@min,@max)');
 			$setCount = 1;
 			
-			// Looping through resut sets
+			// Looping through result sets
 			do{	
 				$set = $records->fetchAll(PDO::FETCH_ASSOC);
 				
