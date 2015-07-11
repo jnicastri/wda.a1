@@ -1,16 +1,18 @@
 <?php
 
 	require_once("includes/requirebundle.php");
-	
+
 	function loadAndBindSearch(){
-	
+		
+		$base = BASE_URL;
+		
 		$temp = new MiniTemplator;
 		$load = $temp->readTemplateFromFile("html/search-template.html");
 
 		if(!$load)
 			die ("Loading HTML template has failed!");
 		
-		$temp->setVariable("baseurl", BASE_URL);
+		$temp->setVariable("baseurl", $base);
 		$minYear = $maxYear = "";
 		
 		$conStr = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8";
@@ -52,7 +54,7 @@
 			
 		}
 		catch(PDOException $ex){
-			// Redirect to Error here!
+			header("Location: http://$base/error.php");
 		}
 		
 		// Adding 'All' options for year Ddl's

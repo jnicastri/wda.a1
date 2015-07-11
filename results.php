@@ -22,9 +22,10 @@
 			$temp->setVariable("RegionName", strval($listItem->regionName));
 			$temp->setVariable("WineYear", strval($listItem->wineYear));
 			$temp->setVariable("GrapeVar", strval($listItem->grapeVariety));
-			$temp->setVariable("InvCost", "$" . strval($listItem->inventoryCost));
+			$temp->setVariable("InvCost", "$" . strval(round($listItem->inventoryCost, 2)));
 			$temp->setVariable("OHQty", strval($listItem->onHandQty));
 			$temp->setVariable("SoldQty", strval($listItem->soldQty));
+			$temp->setVariable("SalesRev", "$" . strval($listItem->salesRevenue));
 			
 			$temp->addBlock("resultRecord");
 		}

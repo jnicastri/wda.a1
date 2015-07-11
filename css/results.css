@@ -1,0 +1,21 @@
+table{
+	border: 1px solid grey;
+}
+
+table th{
+	border: 1px solid grey;
+	background-color: black;
+	color: white;
+	padding: 5px;
+	font-size: 12px;
+	text-align: left;
+}
+
+table tr td{
+	border: 1px solid grey;
+	padding: 5px;
+}
+
+table tr:nth-child(even){
+	background-color: #B2B2B2;
+}

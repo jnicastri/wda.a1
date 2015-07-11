@@ -20,7 +20,7 @@ SELECT
 	W.year AS WineYear,
 	R.region_name AS RegionName,
 	GV.variety AS GrapeVariety,
-	IFNULL(I.cost,0) * IFNULL(I.on_hand,0) AS InventoryCost,
+	IFNULL(AVG(ROUND(I.cost, 2)),0) AS InventoryCost,
 	IFNULL(SUM(I.on_hand),0) AS OnHandCount,
 	IFNULL(SUM(OI.qty),0) AS QtySold,
 	IFNULL(SUM(OI.price),0) AS SalesRevenue
@@ -54,6 +54,7 @@ WHERE
 		END
 	)
 GROUP BY
+	W.wine_id,
 	W.wine_name,
 	WY.winery_name,
 	W.year,

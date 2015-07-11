@@ -1,6 +1,7 @@
 <?php
 	
 	require_once("includes/requirebundle.php");
+	$base = BASE_URL;
 	
 	// Get GET variables
 	$wineName = trim($_GET["wineNameTb"]);
@@ -62,16 +63,6 @@
 		$maxCost = tryParseToNull($maxCost, "float");
 	}	
 	
-	var_dump($wineName);
-	var_dump($wineryName);
-	var_dump($region);
-	var_dump($grapeVar);
-	var_dump($minYear);
-	var_dump($maxYear);
-	var_dump($minStock);
-	var_dump($minOrdered);
-	var_dump($minCost);
-	var_dump($maxCost);
 	
 	$results = Array(); // To hold the results from the DB
 	
@@ -81,7 +72,7 @@
 		$con = new PDO($conStr, DB_USER, DB_PWD);
 		$stmt = $con->prepare('CALL Search_GetResults(?,?,?,?,?,?,?,?,?,?)');
 		
-		// Binding search input filter values to the procedure input parameters
+		// Binding search input filter values to the procedure input parameters - if null, we pass null to DB
 		is_null($wineName) ? $stmt->bindValue(1, null, PDO::PARAM_INT) : $stmt->bindValue(1, $wineName, PDO::PARAM_STR);
 		is_null($region) ? $stmt->bindValue(2, null, PDO::PARAM_INT) : $stmt->bindValue(2, $region, PDO::PARAM_STR);
 		is_null($wineryName) ? $stmt->bindValue(3, null, PDO::PARAM_INT) : $stmt->bindValue(3, $wineryName, PDO::PARAM_STR);
@@ -90,8 +81,8 @@
 		is_null($maxYear) ? $stmt->bindValue(6, null, PDO::PARAM_INT) : $stmt->bindValue(6, $maxYear, PDO::PARAM_INT);
 		is_null($minStock) ? $stmt->bindValue(7, null, PDO::PARAM_INT) : $stmt->bindValue(7, $minStock, PDO::PARAM_INT);
 		is_null($minOrdered) ? $stmt->bindValue(8, null, PDO::PARAM_INT) : $stmt->bindValue(8, $minOrdered, PDO::PARAM_INT);
-		is_null($minCost) ? $stmt->bindValue(9, null, PDO::PARAM_INT) : $stmt->bindValue(9, $minCost, PDO::PARAM_STR);
-		is_null($maxCost) ? $stmt->bindValue(10, null, PDO::PARAM_INT) : $stmt->bindValue(10, $maxCost, PDO::PARAM_STR);
+		is_null($minCost) ? $stmt->bindValue(9, null, PDO::PARAM_INT) : $stmt->bindValue(9, strval($minCost), PDO::PARAM_STR);
+		is_null($maxCost) ? $stmt->bindValue(10, null, PDO::PARAM_INT) : $stmt->bindValue(10, strval($maxCost), PDO::PARAM_STR);
 	
 		$stmt->execute();
 		
@@ -118,29 +109,52 @@
 	}
 	catch(PDOException $ex){
 	  
-		//Redirect to Error Page 
+		header("Location: http://$base/error.php");
   	}
 	
+	// Dealing with duplicate 'Grape Variety' Records
+	$resCount = count($results);
+	$newCount = 0;
+	$newArr = Array();
+	
+	// Loop though results looking for id dups
+	for($i = 0; $i < $resCount; $i++){
+		// Exit Condition - if at the end of $results
+		if(($i + 1) >= $resCount){
+			$newArr[$newCount] = $results[$i];
+			break;
+		}
+		
+		if($results[$i]->wineId == $results[$i + 1]->wineId){
+			$dupCount = 0;
+			$grapeVarStr = $results[$i]->grapeVariety;
+			$dup = true;
+			while($dup){
+				$dupCount++;
+				$grapeVarStr .= ", " . $results[$i + $dupCount]->grapeVariety;
+				if($results[$i + $dupCount]->wineId == $results[$i + $dupCount + 1]->wineId){
+					continue;
+				}
+				else{
+					$results[$i + $dupCount]->grapeVariety = $grapeVarStr;
+					$newArr[$newCount] = $results[$i + $dupCount];
+					$newCount++;
+					$dup = false;
+					$i = $i + $dupCount;
+				}
+			}
+		}
+		else{
+			$newArr[$newCount] = $results[$i];
+			$newCount++;
+		}
+	}
+	
 	// Store Results in session
-	$_SESSION['SearchResults'] = $results;
+	$_SESSION['SearchResults'] = $newArr;
 
 	//Navigate to results page
-	$base = BASE_URL;
 	header("Location: http://$base/results.php");
-	
-	//foreach($results as $listItem){
-	//	echo $listItem->wineId . " " .
-	//		$listItem->wineName . " " . 
-	//		$listItem->wineryName . " " . 
-	//		$listItem->regionName . " " .
-	//		$listItem->wineYear . " " .
-	//		$listItem->grapeVariety . " " .
-	//		$listItem->inventoryCost . " " . 
-	//		$listItem->onHandQty . " " .
-	//		$listItem->soldQty . " " .
-	//
-	//}
-	
 	
 
 ?>

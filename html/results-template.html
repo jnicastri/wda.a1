@@ -3,7 +3,7 @@
 	<head>
 		<title>Search Results</title>
 		<link rel="stylesheet" type="text/css" href="css/global.css" />
-		<!--<link rel="stylesheet" type="text/css" href="css/search.css" />-->
+		<link rel="stylesheet" type="text/css" href="css/results.css" />
 	</head>
 	<body>
 		<h1>Wine Store Search Results</h1>
@@ -11,14 +11,15 @@
 		<!-- $BeginBlock tableHead --> 
 		<table>
 			<tr>
-				<td>Wine Name</td>
-				<td>Winery Name</td>
-				<td>Region Name</td>
-				<td>Wine Year</td>
-				<td>Grape Variety</td>
-				<td>Inventory Cost</td>
-				<td>On Hand Qty</td>
-				<td>Sold Qty</td>
+				<th>Wine Name</th>
+				<th>Winery Name</th>
+				<th>Region Name</th>
+				<th>Wine Year</th>
+				<th>Grape Variety</th>
+				<th>Inv. Unit Cost</th>
+				<th>On Hand Qty</th>
+				<th>Sold Qty</th>
+				<th>Sales Revenue</th>
 			</tr>
 		<!-- $EndBlock tableHead -->
 		<!-- $BeginBlock resultRecord -->
@@ -31,6 +32,7 @@
 				<td>${InvCost}</td>
 				<td>${OHQty}</td>
 				<td>${SoldQty}</td>
+				<td>${SalesRev}</td>
 			</tr>
 		<!-- $EndBlock resultRecord -->
 		<!-- $BeginBlock tableFooter -->
